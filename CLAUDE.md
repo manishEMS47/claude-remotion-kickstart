@@ -208,6 +208,8 @@ const MyComposition: React.FC = () => {
 Reference `@context/remotion.md` for detailed Remotion patterns and APIs.
 Reference `@context/remotion-video.md` for details around embedding videos.
 Reference `@context/remotion-audio.md` for details around embedding audio.
+Reference `@context/60db.md` for the 60db audio API (TTS + STT, used by `/generate-voiceover` and `/transcribe --provider 60db`).
+Reference `@context/deepgram.md` for advanced Deepgram transcription options.
 
 Use the `remotion-documentation` MCP tool for specific questions.
 
@@ -227,15 +229,32 @@ Creates:
 
 ### /transcribe
 
-Transcribe audio from video/audio files using Deepgram API.
+Transcribe audio from video/audio files using Deepgram (default) or 60db.
 
-**Usage:** `/transcribe path/to/media.mp4`
+**Usage:** `/transcribe path/to/media.mp4 [--provider deepgram|60db]`
 
 Features:
 
 - Auto-extracts audio from video files
 - Outputs timestamped JSON transcript
 - Use timestamps for precise segment timing
+- Provider-agnostic: `normalizeTranscript()` (`src/utils/loadTranscript.ts`)
+  converts either provider's output into the shape `segmentTranscript()` /
+  `<Caption>` expect
+
+### /generate-voiceover
+
+Generate a voiceover from text using 60db (default) or ElevenLabs, behind a
+single unified interface with consistent output.
+
+**Usage:** `/generate-voiceover "Your script text" [--provider 60db|elevenlabs] [--voice <id>] [--out <name>]`
+
+Features:
+
+- Saves a normalized mp3 to `public/audio/<name>.mp3` for either provider
+- 60db: `POST /tts-synthesize` (base64 JSON); ElevenLabs: REST `text-to-speech` (mp3 bytes)
+- Reports provider, voice, path, and duration; suggests `/transcribe` for captions
+- See `@context/60db.md` for the full 60db API (TTS, streaming, WebSocket, STT, voices)
 
 ### /generate-image
 

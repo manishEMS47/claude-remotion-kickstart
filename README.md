@@ -32,7 +32,8 @@ These are only needed if you want to use the AI-powered slash commands:
 
 - **Replicate API key** - For image/video generation (`/generate-image`, `/generate-video`)
 - **Deepgram API key** - For transcription (`/transcribe`)
-- **ElevenLabs API key** - For voiceovers and sound effects (via MCP)
+- **ElevenLabs API key** - For voiceovers and sound effects (via MCP or `/generate-voiceover`)
+- **60db API key** - For voiceovers and transcription (`/generate-voiceover`, `/transcribe --provider 60db`)
 
 ## Installation
 
@@ -66,8 +67,11 @@ export REPLICATE_API_TOKEN=your_replicate_token
 # Deepgram - for /transcribe
 export DEEPGRAM_API_KEY=your_deepgram_key
 
-# ElevenLabs - for voiceovers (used via MCP server)
+# ElevenLabs - for voiceovers (via MCP server or /generate-voiceover)
 export ELEVENLABS_API_KEY=your_elevenlabs_key
+
+# 60db - for voiceovers and transcription (/generate-voiceover, /transcribe --provider 60db)
+export SIXTYDB_API_KEY=your_60db_key
 ```
 
 ## Quick Start
@@ -149,11 +153,12 @@ When using Claude Code, these slash commands are available:
 
 | Command                    | Description                               |
 | -------------------------- | ----------------------------------------- |
-| `/new-composition <name>`  | Create a new composition with boilerplate |
-| `/generate-image <prompt>` | Generate an image with Nano Banana Pro    |
-| `/generate-video <prompt>` | Generate a video with Veo 3.1             |
-| `/transcribe <file>`       | Transcribe audio/video with Deepgram      |
-| `/screenshot <url>`        | Take a full-page screenshot               |
+| `/new-composition <name>`     | Create a new composition with boilerplate     |
+| `/generate-image <prompt>`    | Generate an image with Nano Banana Pro        |
+| `/generate-video <prompt>`    | Generate a video with Veo 3.1                 |
+| `/generate-voiceover <text>`  | Generate a voiceover with 60db or ElevenLabs  |
+| `/transcribe <file>`          | Transcribe audio/video with Deepgram or 60db  |
+| `/screenshot <url>`           | Take a full-page screenshot                   |
 
 ## Video Presets
 
